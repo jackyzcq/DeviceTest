@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+	<LinearLayout android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:padding="6dip"
+	    android:orientation="vertical">
+	
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="@color/blue"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:text="@string/version_software_desc" />
+	
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="6dip"
+	        android:textAppearance="?android:attr/textAppearance"
+	        android:text="@string/version_software_codename" />
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textAppearance="?android:attr/textAppearance"
+	        android:id="@+id/version_software_codename" />
+	
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="6dip"
+	        android:textAppearance="?android:attr/textAppearance"
+	        android:text="@string/version_software_incremental" />
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textAppearance="?android:attr/textAppearance"
+	        android:id="@+id/version_software_incremental" />
+	
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="6dip"
+	        android:textAppearance="?android:attr/textAppearance"
+	        android:text="@string/version_software_release" />
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textAppearance="?android:attr/textAppearance"
+	        android:id="@+id/version_software_release" />
+	
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="6dip"
+	        android:textAppearance="?android:attr/textAppearance"
+	        android:text="@string/version_software_sdk" />
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textAppearance="?android:attr/textAppearance"
+	        android:id="@+id/version_software_sdk" />
+	
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="6dip"
+	        android:textAppearance="?android:attr/textAppearance"
+	        android:text="@string/version_software_baseband" />
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textAppearance="?android:attr/textAppearance"
+	        android:id="@+id/version_software_baseband" />
+	
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="6dip"
+	        android:textAppearance="?android:attr/textAppearance"
+	        android:text="@string/version_software_display" />
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textAppearance="?android:attr/textAppearance"
+	        android:id="@+id/version_software_display" />
+	
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="6dip"
+	        android:textColor="@color/blue"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:text="@string/version_hardware_desc" />
+	
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="6dip"
+	        android:textAppearance="?android:attr/textAppearance"
+	        android:text="@string/version_hardware_board" />
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textAppearance="?android:attr/textAppearance"
+	        android:id="@+id/version_hardware_board" />
+	
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="6dip"
+	        android:textAppearance="?android:attr/textAppearance"
+	        android:text="@string/version_hardware_model" />
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textAppearance="?android:attr/textAppearance"
+	        android:id="@+id/version_hardware_model" />
+	
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="6dip"
+	        android:textAppearance="?android:attr/textAppearance"
+	        android:text="@string/version_hardware_device" />
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textAppearance="?android:attr/textAppearance"
+	        android:id="@+id/version_hardware_device" />
+	
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="6dip"
+	        android:textAppearance="?android:attr/textAppearance"
+	        android:text="@string/version_hardware_manufacture" />
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textAppearance="?android:attr/textAppearance"
+	        android:id="@+id/version_hardware_manufacture" />
+	</LinearLayout>
+</ScrollView>
