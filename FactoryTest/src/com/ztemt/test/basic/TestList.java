@@ -14,6 +14,7 @@ import com.ztemt.test.basic.item.SpeakerTest;
 import com.ztemt.test.basic.item.TouchTest;
 import com.ztemt.test.basic.item.UnknownTest;
 import com.ztemt.test.basic.item.VersionTest;
+import com.ztemt.test.basic.item.VibratorTest;
 
 public class TestList {
 
@@ -27,6 +28,7 @@ public class TestList {
         new EarphoneTest(),
         new FmRadioTest(),
         new KeyTest(),
+        new VibratorTest(),
         new TouchTest(),
         new LoopbackTest(),
     };

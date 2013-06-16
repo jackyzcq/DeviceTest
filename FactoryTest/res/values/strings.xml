@@ -54,6 +54,12 @@
     <string name="key_title">"按键测试"</string>
     <string name="key_desc">"下面显示的是当前按下的按键，部分系统按键会被截获，如HOME和POWER键"</string>
 
+    <!-- vibrator -->
+    <string name="vibrator_title">"震动测试"</string>
+    <string name="vibrator_desc">"请分别检查长震动和短震动是否有效"</string>
+    <string name="vibrator_long">"长震动"</string>
+    <string name="vibrator_short">"短震动"</string>
+
     <!-- touch -->
     <string name="touch_title">"触摸屏测试"</string>
     <string name="touch_desc">"请分别对屏幕边界和中心区域进行单指划线测试，双击屏幕完成"</string>
