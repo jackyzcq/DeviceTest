@@ -37,7 +37,7 @@ public class VibratorTest extends BaseTest implements OnClickListener {
             mVibrator.vibrate(1000);
             break;
         case R.id.btn_short_vibrator:
-            mVibrator.vibrate(100);
+            mVibrator.vibrate(45);
             break;
         }
     }
@@ -49,7 +49,7 @@ public class VibratorTest extends BaseTest implements OnClickListener {
 
     @Override
     public boolean isNeedTest() {
-        return getContext().getSystemService(Context.VIBRATOR_SERVICE) != null
-                && getSystemProperties("vibrator", true);
+        Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        return v != null && v.hasVibrator() && getSystemProperties("vibrator", true);
     }
 }

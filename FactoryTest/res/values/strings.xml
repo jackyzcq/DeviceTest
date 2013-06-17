@@ -60,6 +60,19 @@
     <string name="vibrator_long">"长震动"</string>
     <string name="vibrator_short">"短震动"</string>
 
+    <!-- storage -->
+    <string name="storage_title">"存储卡测试"</string>
+    <string name="storage_plug_in">"请插入存储卡"</string>
+    <string name="storage_check_play">"请检查是否有音乐播放"</string>
+
+    <!-- camera -->
+    <string name="camera_title">"相机测试"</string>
+    <string name="camera_desc">"相机测试，点击屏幕开始"</string>
+
+    <!-- flashlight -->
+    <string name="flashlight_title">"闪光灯测试"</string>
+    <string name="flashlight_desc">"检查闪光灯能否开启，点击屏幕开始"</string>
+
     <!-- touch -->
     <string name="touch_title">"触摸屏测试"</string>
     <string name="touch_desc">"请分别对屏幕边界和中心区域进行单指划线测试，双击屏幕完成"</string>

@@ -4,13 +4,16 @@ import android.content.Context;
 
 import com.ztemt.test.basic.item.BacklightTest;
 import com.ztemt.test.basic.item.BaseTest;
+import com.ztemt.test.basic.item.CameraTest;
 import com.ztemt.test.basic.item.EarphoneTest;
+import com.ztemt.test.basic.item.FlashlightTest;
 import com.ztemt.test.basic.item.FmRadioTest;
 import com.ztemt.test.basic.item.KeyTest;
 import com.ztemt.test.basic.item.LCDTest;
 import com.ztemt.test.basic.item.LoopbackTest;
 import com.ztemt.test.basic.item.ReceiverTest;
 import com.ztemt.test.basic.item.SpeakerTest;
+import com.ztemt.test.basic.item.StorageTest;
 import com.ztemt.test.basic.item.TouchTest;
 import com.ztemt.test.basic.item.UnknownTest;
 import com.ztemt.test.basic.item.VersionTest;
@@ -29,6 +32,9 @@ public class TestList {
         new FmRadioTest(),
         new KeyTest(),
         new VibratorTest(),
+        new StorageTest(),
+        new CameraTest(),
+        new FlashlightTest(),
         new TouchTest(),
         new LoopbackTest(),
     };
