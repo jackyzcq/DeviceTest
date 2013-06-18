@@ -77,9 +77,29 @@
     <string name="touch_title">"触摸屏测试"</string>
     <string name="touch_desc">"请分别对屏幕边界和中心区域进行单指划线测试，双击屏幕完成"</string>
 
+    <!-- compass -->
+    <string name="compass_title">"指南针测试"</string>
+    <string name="compass_accuracy">"精度值：%1$s"</string>
+    <string name="compass_calibration">"请在空中划8字形以进行指南针校准"</string>
+    <string name="compass_check_point">"请检查指南针是否指向正确，点击屏幕完成"</string>
+
+    <!-- charger -->
+    <string name="charger_title">"充电器测试"</string>
+    <string name="charger_plug_in">"请插入充电器"</string>
+    <string name="charger_plugged">"充电器已插入"</string>
+
     <!-- loopback -->
     <string name="loopback_title">"回环测试"</string>
     <string name="loopback_desc">"请对准MIC大声说话或吹气，检查听筒是否有声音传出，点击屏幕开始"</string>
+
+    <!-- gsensor -->
+    <string name="gsensor_title">"重力感应测试"</string>
+    <string name="gsensor_portrait_start">"竖屏模式"</string>
+    <string name="gsensor_portrait_success">"竖屏成功"</string>
+    <string name="gsensor_portrait_next">"请横屏"</string>
+    <string name="gsensor_landscape_start">"横屏模式"</string>
+    <string name="gsensor_landscape_success">"横屏成功"</string>
+    <string name="gsensor_landscape_next">"请竖屏"</string>
 
     <!-- unknown -->
     <string name="unknown_title">"未知测试"</string>

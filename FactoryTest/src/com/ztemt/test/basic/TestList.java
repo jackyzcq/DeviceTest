@@ -5,9 +5,12 @@ import android.content.Context;
 import com.ztemt.test.basic.item.BacklightTest;
 import com.ztemt.test.basic.item.BaseTest;
 import com.ztemt.test.basic.item.CameraTest;
+import com.ztemt.test.basic.item.ChargerTest;
+import com.ztemt.test.basic.item.CompassTest;
 import com.ztemt.test.basic.item.EarphoneTest;
 import com.ztemt.test.basic.item.FlashlightTest;
 import com.ztemt.test.basic.item.FmRadioTest;
+import com.ztemt.test.basic.item.GSensorTest;
 import com.ztemt.test.basic.item.KeyTest;
 import com.ztemt.test.basic.item.LCDTest;
 import com.ztemt.test.basic.item.LoopbackTest;
@@ -36,7 +39,10 @@ public class TestList {
         new CameraTest(),
         new FlashlightTest(),
         new TouchTest(),
+        new CompassTest(),
+        new ChargerTest(),
         new LoopbackTest(),
+        new GSensorTest(),
     };
 
     // Need to test items
