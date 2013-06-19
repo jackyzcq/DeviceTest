@@ -3,6 +3,7 @@ package com.ztemt.test.basic;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,6 +48,11 @@ public class TestItemActivity extends Activity {
         } else {
             return super.onKeyDown(keyCode, event);
         }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        TestList.get(mIndex).onNewIntent(intent);
     }
 
     @Override

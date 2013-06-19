@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -78,6 +79,11 @@ public abstract class BaseTest extends Fragment implements Runnable {
     /** Key press down handler */
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         return false;
+    }
+
+    /** New intent handler */
+    public void onNewIntent(Intent intent) {
+
     }
 
     /** Double tap handler */

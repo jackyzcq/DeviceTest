@@ -11,9 +11,11 @@ import com.ztemt.test.basic.item.EarphoneTest;
 import com.ztemt.test.basic.item.FlashlightTest;
 import com.ztemt.test.basic.item.FmRadioTest;
 import com.ztemt.test.basic.item.GSensorTest;
+import com.ztemt.test.basic.item.GyroSensorTest;
 import com.ztemt.test.basic.item.KeyTest;
 import com.ztemt.test.basic.item.LCDTest;
 import com.ztemt.test.basic.item.LoopbackTest;
+import com.ztemt.test.basic.item.NfcTest;
 import com.ztemt.test.basic.item.ReceiverTest;
 import com.ztemt.test.basic.item.SpeakerTest;
 import com.ztemt.test.basic.item.StorageTest;
@@ -43,6 +45,8 @@ public class TestList {
         new ChargerTest(),
         new LoopbackTest(),
         new GSensorTest(),
+        new NfcTest(),
+        new GyroSensorTest(),
     };
 
     // Need to test items

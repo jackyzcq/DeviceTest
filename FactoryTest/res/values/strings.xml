@@ -101,6 +101,23 @@
     <string name="gsensor_landscape_success">"横屏成功"</string>
     <string name="gsensor_landscape_next">"请竖屏"</string>
 
+    <!-- nfc -->
+    <string name="nfc_title">"NFC测试"</string>
+    <string name="nfc_turn_on">"请开启NFC后再测试"</string>
+    <string name="nfc_check_tag">"请检查读取标签信息"</string>
+    <string name="nfc_on">"NFC状态：开启"</string>
+    <string name="nfc_off">"NFC状态：关闭"</string>
+    <string name="nfc_tag_empty">"空标记"</string>
+    <string name="nfc_tag_unknown">"未知的标记类型"</string>
+    <string name="nfc_action_text">"向 %s 发送短信"</string>
+    <string name="nfc_action_call">"呼叫 %s"</string>
+    <string name="nfc_import_vcard">"导入 ^1"</string>
+    <string name="nfc_vcard_title">"^1的联系人信息"</string>
+
+    <!-- gyrosensor -->
+    <string name="gyrosensor_title">"陀螺仪测试"</string>
+    <string name="gyrosensor_desc">"请转动设备检查陀螺仪是否正常"</string>
+
     <!-- unknown -->
     <string name="unknown_title">"未知测试"</string>
 
