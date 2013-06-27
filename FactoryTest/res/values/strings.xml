@@ -90,7 +90,19 @@
 
     <!-- loopback -->
     <string name="loopback_title">"回环测试"</string>
-    <string name="loopback_desc">"请对准MIC大声说话或吹气，检查听筒是否有声音传出，点击屏幕开始"</string>
+    <string name="loopback_desc">"请对准麦克风大声说话或吹气，检查听筒是否有声音传出，点击屏幕开始"</string>
+
+    <!-- microphone -->
+    <string name="microphone_title">"麦克风气密性测试"</string>
+    <string name="microphone_close_to">"请将终端靠近音源"</string>
+    <string name="microphone_block">"请堵住麦克风口"</string>
+    <string name="microphone_amplitude1">"堵前最大振幅："</string>
+    <string name="microphone_amplitude2">"堵后最大振幅："</string>
+    <string name="microphone_amp_value">"%1$d"</string>
+    <string name="microphone_difference">"前后降幅："</string>
+    <string name="microphone_diff_value">"%1$.2f%%"</string>
+    <string name="microphone_suggest_pass">"建议通过"</string>
+    <string name="microphone_suggest_fail">"建议不通过"</string>
 
     <!-- gsensor -->
     <string name="gsensor_title">"重力感应测试"</string>

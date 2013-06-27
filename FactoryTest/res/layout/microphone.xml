@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="45dip"
+        android:gravity="center_vertical|center_horizontal"
+        android:textAppearance="?android:attr/textAppearance"
+        android:text="@string/microphone_close_to"
+        android:id="@+id/microphone_text" />
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="45dip"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        android:id="@+id/microphone_result">
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:orientation="horizontal">
+            <TextView android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textAppearance="?android:attr/textAppearance"
+                android:text="@string/microphone_amplitude1" />
+            <TextView android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearance"
+                android:id="@+id/microphone_amplitude1" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:orientation="horizontal">
+            <TextView android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textAppearance="?android:attr/textAppearance"
+                android:text="@string/microphone_amplitude2" />
+            <TextView android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearance"
+                android:id="@+id/microphone_amplitude2" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dip"
+            android:orientation="horizontal">
+            <TextView android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textAppearance="?android:attr/textAppearance"
+                android:text="@string/microphone_difference" />
+            <TextView android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearance"
+                android:id="@+id/microphone_difference" />
+        </LinearLayout>
+        <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/microphone_suggest_pass"
+            android:id="@+id/microphone_suggest" />
+    </LinearLayout>
+</FrameLayout>

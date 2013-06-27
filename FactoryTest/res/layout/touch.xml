@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="45dip"
-    android:gravity="center_vertical|center_horizontal"
-    android:textAppearance="?android:attr/textAppearance"
-    android:text="@string/touch_desc"
-    android:id="@+id/touch_text" />
+    android:orientation="vertical">
+
+    <LinearLayout android:id="@+id/touch_north"
+        android:layout_width="match_parent"
+        android:layout_height="60dip"
+        android:orientation="horizontal" />
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <LinearLayout android:id="@+id/touch_west"
+            android:layout_width="60dip"
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
+        <view class="com.ztemt.test.basic.item.TouchTest$TouchView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            android:id="@+id/touch_center" />
+        <LinearLayout android:id="@+id/touch_east"
+            android:layout_width="60dip"
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/touch_south"
+        android:layout_width="match_parent"
+        android:layout_height="60dip"
+        android:orientation="horizontal" />
+
+</LinearLayout>
