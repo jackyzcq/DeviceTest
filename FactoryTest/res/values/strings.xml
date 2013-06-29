@@ -113,6 +113,11 @@
     <string name="gsensor_landscape_success">"横屏成功"</string>
     <string name="gsensor_landscape_next">"请竖屏"</string>
 
+    <string name="proxsensor_title">"接近感应器测试"</string>
+    <string name="proxsensor_signal">"信号值：%1$d"</string>
+    <string name="proxsensor_cover">"请将手盖住接近感应器"</string>
+    <string name="proxsensor_remove">"请将手拿开"</string>
+
     <!-- nfc -->
     <string name="nfc_title">"NFC测试"</string>
     <string name="nfc_turn_on">"请开启NFC后再测试"</string>

@@ -25,7 +25,6 @@ public class TouchTest extends BaseTest implements OnTouchListener {
     private static final String TAG = "TouchTest";
     private static final String TAG_OK = "ok";
     private static final int MSG_CENTER_TOUCH = 1;
-    private static final float TOUCH_TOLERANCE = 50;
 
     private LinearLayout mNorth;
     private LinearLayout mSouth;
@@ -35,8 +34,22 @@ public class TouchTest extends BaseTest implements OnTouchListener {
 
     private boolean mTouchValid;
 
+    private static float sDensity;
+    private static float sTouchTolerance;
     private float mX = 0;
     private float mY = 0;
+    private int mWidth;
+    private int mHeight;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        DisplayMetrics dm = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        mWidth = dm.widthPixels;
+        mHeight = dm.heightPixels;
+        sTouchTolerance = (sDensity = dm.density) * 17;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,10 +68,9 @@ public class TouchTest extends BaseTest implements OnTouchListener {
         mWest.setOnTouchListener(this);
 
         // Base on 320 x 480, density = 1.0, block is 20 x 24
-        DisplayMetrics dm = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int wc = Math.round((20 * dm.widthPixels) / (320 * dm.density));
-        int hc = Math.round((24 * dm.heightPixels) / (480 * dm.density));
+        int wc = Math.round((20 * mWidth) / (320 * sDensity));
+        int hc = Math.round((24 * mHeight) / (480 * sDensity));
+
         addBorder(mNorth, wc);
         addBorder(mSouth, wc);
         addBorder(mEast, hc);
@@ -125,7 +137,7 @@ public class TouchTest extends BaseTest implements OnTouchListener {
         mY = y;
 
         if (mTouchValid) {
-            mTouchValid = dx < TOUCH_TOLERANCE && dy < TOUCH_TOLERANCE;
+            mTouchValid = dx < sTouchTolerance && dy < sTouchTolerance;
         }
 
         if (mTouchValid) {
@@ -202,7 +214,7 @@ public class TouchTest extends BaseTest implements OnTouchListener {
         private Path   mPath;
         private Paint  mBitmapPaint;
         private Paint  mPaint;
-        private Paint  mLinePaint;
+        private Paint  mDashPaint;
 
         private boolean mTouchValid;
 
@@ -226,12 +238,12 @@ public class TouchTest extends BaseTest implements OnTouchListener {
             mPaint.setStyle(Paint.Style.STROKE);
             mPaint.setStrokeJoin(Paint.Join.ROUND);
             mPaint.setStrokeCap(Paint.Cap.ROUND);
-            mPaint.setStrokeWidth(12);
+            mPaint.setStrokeWidth(4 * sDensity);
 
-            mLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            mLinePaint.setStyle(Paint.Style.STROKE);
-            mLinePaint.setColor(Color.LTGRAY);
-            mLinePaint.setStrokeWidth(1);
+            mDashPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            mDashPaint.setStyle(Paint.Style.STROKE);
+            mDashPaint.setColor(Color.LTGRAY);
+            mDashPaint.setStrokeWidth(1);
         }
 
         @Override
@@ -248,18 +260,18 @@ public class TouchTest extends BaseTest implements OnTouchListener {
 
             canvas.drawColor(Color.WHITE);
 
-            canvas.drawLine(0, 0, w, h, mLinePaint);
-            canvas.drawLine(w, 0, 0, h, mLinePaint);
+            canvas.drawLine(0, 0, w, h, mDashPaint);
+            canvas.drawLine(w, 0, 0, h, mDashPaint);
 
-            canvas.drawLine(w / 3, 0, w, h * 2 / 3, mLinePaint);
-            canvas.drawLine(w * 2 / 3, 0, w, h / 3, mLinePaint);
-            canvas.drawLine(0, h / 3, w * 2 / 3, h, mLinePaint);
-            canvas.drawLine(0, h * 2 / 3, w / 3, h, mLinePaint);
+            canvas.drawLine(w / 3, 0, w, h * 2 / 3, mDashPaint);
+            canvas.drawLine(w * 2 / 3, 0, w, h / 3, mDashPaint);
+            canvas.drawLine(0, h / 3, w * 2 / 3, h, mDashPaint);
+            canvas.drawLine(0, h * 2 / 3, w / 3, h, mDashPaint);
 
-            canvas.drawLine(w * 2 / 3, 0, 0, h * 2 / 3, mLinePaint);
-            canvas.drawLine(w / 3, 0, 0, h / 3, mLinePaint);
-            canvas.drawLine(w, h / 3, w / 3, h, mLinePaint);
-            canvas.drawLine(w, h * 2 / 3, w * 2 / 3, h, mLinePaint);
+            canvas.drawLine(w * 2 / 3, 0, 0, h * 2 / 3, mDashPaint);
+            canvas.drawLine(w / 3, 0, 0, h / 3, mDashPaint);
+            canvas.drawLine(w, h / 3, w / 3, h, mDashPaint);
+            canvas.drawLine(w, h * 2 / 3, w * 2 / 3, h, mDashPaint);
 
             canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
             canvas.drawPath(mPath, mPaint);
@@ -298,7 +310,7 @@ public class TouchTest extends BaseTest implements OnTouchListener {
             float dx = Math.abs(x - mX);
             float dy = Math.abs(y - mY);
 
-            mTouchValid = dx < TOUCH_TOLERANCE && dy < TOUCH_TOLERANCE;
+            mTouchValid = dx < sTouchTolerance && dy < sTouchTolerance;
 
             if (mTouchValid) {
                 mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
