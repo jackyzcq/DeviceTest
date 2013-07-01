@@ -1,22 +1,30 @@
 package com.ztemt.test.basic;
 
+import android.app.ActionBar;
 import android.app.ListActivity;
+import android.app.ActionBar.LayoutParams;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
-public class TestListActivity extends ListActivity {
+public class TestListActivity extends ListActivity implements OnCheckedChangeListener {
 
     private static final String TAG = "TestListActivity";
+    private static final String PREFS = "test_prefs";
+    private static final String KEY_SINGLE_MODE = "single_mode";
 
     private TestListAdapter mAdapter;
 
@@ -24,6 +32,8 @@ public class TestListActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_list);
+
+        setActionBarOptions();
 
         mAdapter = new TestListAdapter(this);
         setListAdapter(mAdapter);
@@ -42,6 +52,29 @@ public class TestListActivity extends ListActivity {
         if (requestCode == 0) {
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        SharedPreferences sp = getSharedPreferences(PREFS, MODE_PRIVATE);
+        sp.edit().putBoolean(KEY_SINGLE_MODE, isChecked).commit();
+    }
+
+    private void setActionBarOptions() {
+        View v = getLayoutInflater().inflate(R.layout.test_list_options, null);
+
+        SharedPreferences sp = getSharedPreferences(PREFS, MODE_PRIVATE);
+        CheckBox cb = (CheckBox) v.findViewById(R.id.single_mode);
+        cb.setChecked(sp.getBoolean(KEY_SINGLE_MODE, false));
+        cb.setOnCheckedChangeListener(this);
+
+        LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        lp.gravity = Gravity.RIGHT | Gravity.CENTER_VERTICAL;
+        getActionBar().setCustomView(v, lp);
+
+        int flags = ActionBar.DISPLAY_SHOW_CUSTOM;
+        int options = getActionBar().getDisplayOptions() ^ flags;
+        getActionBar().setDisplayOptions(options, flags);
     }
 
     class TestListAdapter extends BaseAdapter {
@@ -105,7 +138,7 @@ public class TestListActivity extends ListActivity {
         }
 
         private void setResultView(int position, TextView tv) {
-            SharedPreferences sp = getSharedPreferences("test_prefs", MODE_PRIVATE);
+            SharedPreferences sp = getSharedPreferences(PREFS, MODE_PRIVATE);
             int state = sp.getInt(String.valueOf(position), -1);
             switch (state) {
             case 1:

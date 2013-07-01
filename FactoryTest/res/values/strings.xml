@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">"功能测试"</string>
+    <string name="single_mode">"单项模式"</string>
     <string name="pass_text">"通过"</string>
     <string name="fail_text">"失败"</string>
     <string name="exit_text">"退出"</string>
@@ -113,10 +114,19 @@
     <string name="gsensor_landscape_success">"横屏成功"</string>
     <string name="gsensor_landscape_next">"请竖屏"</string>
 
-    <string name="proxsensor_title">"接近感应器测试"</string>
+    <!-- proxsensor -->
+    <string name="proxsensor_title">"接近感应测试"</string>
     <string name="proxsensor_signal">"信号值：%1$d"</string>
     <string name="proxsensor_cover">"请将手盖住接近感应器"</string>
     <string name="proxsensor_remove">"请将手拿开"</string>
+
+    <!-- lightsensor -->
+    <string name="lightsensor_title">"光感应测试"</string>
+    <string name="lightsensor_desc">"请改变周围光线强度\n绿色级别表示当前光线级别\n蓝色级别表示达到的光线级别"</string>
+    <string name="lightsensor_level_1">"级别1：0 &lt; X &lt;= 20"</string>
+    <string name="lightsensor_level_2">"级别2：20 &lt; X &lt;= 1000"</string>
+    <string name="lightsensor_level_3">"级别3：1000 &lt; X"</string>
+    <string name="lightsensor_signal">"实时值：%1$d"</string>
 
     <!-- nfc -->
     <string name="nfc_title">"NFC测试"</string>

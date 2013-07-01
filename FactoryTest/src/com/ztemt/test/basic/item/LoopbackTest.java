@@ -34,7 +34,7 @@ public class LoopbackTest extends ReceiverTest {
     }
 
     @Override
-    public void onHandleMessage(int index) {
+    public void onHandleMessage(final int index) {
         switch (index) {
         case MSG_START:
             setTimerTask(MSG_END, MSG_DELAY_TIME);

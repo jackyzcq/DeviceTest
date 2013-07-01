@@ -56,7 +56,7 @@ public class ChargerTest extends BaseTest {
 
     @Override
     public void onHandleMessage(final int index) {
-        getActivity().findViewById(R.id.btn_pass).performClick();
+        clickPassButton();
     }
 
     @Override

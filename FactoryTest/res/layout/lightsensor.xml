@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dip"
+        android:textColor="@color/blue"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/lightsensor_desc" />
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dip"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+	    <TextView android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:text="@string/lightsensor_level_1"
+	        android:id="@+id/lightsensor_level_1" />
+	    <TextView android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="1dip"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:text="@string/lightsensor_level_2"
+	        android:id="@+id/lightsensor_level_2" />
+	    <TextView android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="1dip"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:text="@string/lightsensor_level_3"
+	        android:id="@+id/lightsensor_level_3" />
+    </LinearLayout>
+
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dip"
+        android:layout_alignParentBottom="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/blue"
+        android:text="@string/lightsensor_signal"
+        android:id="@+id/lightsensor_signal" />
+
+</RelativeLayout>

@@ -74,9 +74,9 @@ public class ProxSensorTest extends BaseTest implements SensorEventListener {
     @Override
     public void onHandleMessage(final int index) {
         if (index == MSG_CHECK && mSignalValue <= 0) {
-            getActivity().findViewById(R.id.btn_fail).performClick();
+            clickFailButton();
         } else if (index == MSG_REMOVE && mCovered) {
-            getActivity().findViewById(R.id.btn_pass).performClick();
+            clickPassButton();
         }
     }
 

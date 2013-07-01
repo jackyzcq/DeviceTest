@@ -123,4 +123,14 @@ public abstract class BaseTest extends Fragment implements Runnable {
     protected boolean isButtonVisible() {
         return getActivity().findViewById(R.id.buttons).getVisibility() == View.VISIBLE;
     }
+
+    /** Perform pass button click */
+    protected void clickPassButton() {
+        getActivity().findViewById(R.id.btn_pass).performClick();
+    }
+
+    /** Perform fail button click */
+    protected void clickFailButton() {
+        getActivity().findViewById(R.id.btn_fail).performClick();
+    }
 }

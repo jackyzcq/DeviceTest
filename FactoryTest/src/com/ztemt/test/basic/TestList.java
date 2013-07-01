@@ -14,6 +14,7 @@ import com.ztemt.test.basic.item.GSensorTest;
 import com.ztemt.test.basic.item.GyroSensorTest;
 import com.ztemt.test.basic.item.KeyTest;
 import com.ztemt.test.basic.item.LCDTest;
+import com.ztemt.test.basic.item.LightSensorTest;
 import com.ztemt.test.basic.item.LoopbackTest;
 import com.ztemt.test.basic.item.MicrophoneTest;
 import com.ztemt.test.basic.item.NfcTest;
@@ -49,6 +50,7 @@ public class TestList {
         new MicrophoneTest(),
         new GSensorTest(),
         new ProxSensorTest(),
+        new LightSensorTest(),
         new NfcTest(),
         new GyroSensorTest(),
     };

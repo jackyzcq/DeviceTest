@@ -81,7 +81,7 @@ public class StorageTest extends SpeakerTest {
     }
 
     @Override
-    public void onHandleMessage(int index) {
+    public void onHandleMessage(final int index) {
         switch (index) {
         case MSG_START:
             String state = Environment.getExternalStorageState();
