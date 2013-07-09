@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -25,6 +27,11 @@ public class TouchTest extends BaseTest implements OnTouchListener {
     private static final String TAG = "TouchTest";
     private static final String TAG_OK = "ok";
     private static final int MSG_CENTER_TOUCH = 1;
+    private static final int MSG_END = 2;
+
+    private static TouchTest sInstance;
+    private static float sDensity;
+    private static float sTouchTolerance;
 
     private LinearLayout mNorth;
     private LinearLayout mSouth;
@@ -33,22 +40,29 @@ public class TouchTest extends BaseTest implements OnTouchListener {
     private TouchView mView;
 
     private boolean mTouchValid;
-
-    private static float sDensity;
-    private static float sTouchTolerance;
     private float mX = 0;
     private float mY = 0;
     private int mWidth;
     private int mHeight;
 
+    public static TouchTest getInstance() {
+        return sInstance;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         DisplayMetrics dm = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        WindowManager wm = getActivity().getWindowManager();
+        wm.getDefaultDisplay().getMetrics(dm);
         mWidth = dm.widthPixels;
         mHeight = dm.heightPixels;
+
         sTouchTolerance = (sDensity = dm.density) * 17;
+
+        // Use by class TouchView
+        sInstance = this;
     }
 
     @Override
@@ -95,7 +109,7 @@ public class TouchTest extends BaseTest implements OnTouchListener {
             touchUp();
             break;
         }
-        return !isBorderChecked();
+        return true;
     }
 
     @Override
@@ -104,13 +118,10 @@ public class TouchTest extends BaseTest implements OnTouchListener {
         case MSG_CENTER_TOUCH:
             mView.setVisibility(View.VISIBLE);
             break;
+        case MSG_END:
+            clickPassButton();
+            break;
         }
-    }
-
-    @Override
-    public boolean onDoubleTap(MotionEvent e) {
-        setButtonVisibility(!isButtonVisible());
-        return true;
     }
 
     @Override
@@ -151,15 +162,11 @@ public class TouchTest extends BaseTest implements OnTouchListener {
     }
 
     private void touchUp() {
-        if (isBorderChecked()) {
+        if (checkBorder(mNorth) && checkBorder(mSouth) && checkBorder(mEast)
+                && checkBorder(mWest)) {
             // set center touch view visible
             setTimerTask(MSG_CENTER_TOUCH, 1000);
         }
-    }
-
-    private boolean isBorderChecked() {
-        return checkBorder(mNorth) && checkBorder(mSouth) && checkBorder(mEast)
-                && checkBorder(mWest);
     }
 
     private void fillBorder(LinearLayout ll, float x, float y) {
@@ -209,14 +216,19 @@ public class TouchTest extends BaseTest implements OnTouchListener {
 
     public static class TouchView extends View {
 
+        private static final int LINES_LENGTH = 10;
+        private static final Point[][] POINTS = new Point[LINES_LENGTH][2];
+
         private Bitmap mBitmap;
         private Canvas mCanvas;
         private Path   mPath;
         private Paint  mBitmapPaint;
         private Paint  mPaint;
         private Paint  mDashPaint;
+        private Point  mPoint;
 
         private boolean mTouchValid;
+        private boolean mFlag[] = new boolean[LINES_LENGTH];
 
         private float mX, mY;
 
@@ -248,30 +260,31 @@ public class TouchTest extends BaseTest implements OnTouchListener {
 
         @Override
         protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-            super.onSizeChanged(w, h, oldw, oldh);
+            POINTS[0] = new Point[] { new Point(0, 0), new Point(w, h) };
+            POINTS[1] = new Point[] { new Point(w, 0), new Point(0, h) };
+
+            POINTS[2] = new Point[] { new Point(w / 3, 0), new Point(w, h * 2 / 3) };
+            POINTS[3] = new Point[] { new Point(w * 2 / 3, 0), new Point(w, h / 3) };
+            POINTS[4] = new Point[] { new Point(0, h / 3), new Point(w * 2 / 3, h) };
+            POINTS[5] = new Point[] { new Point(0, h * 2 / 3), new Point(w / 3, h) };
+
+            POINTS[6] = new Point[] { new Point(w * 2 / 3, 0), new Point(0, h * 2 / 3) };
+            POINTS[7] = new Point[] { new Point(w / 3, 0), new Point(0, h / 3) };
+            POINTS[8] = new Point[] { new Point(w, h / 3), new Point(w / 3, h) };
+            POINTS[9] = new Point[] { new Point(w, h * 2 / 3), new Point(w * 2 / 3, h) };
+
             mBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
             mCanvas = new Canvas(mBitmap);
         }
 
         @Override
         protected void onDraw(Canvas canvas) {
-            int w = getWidth();
-            int h = getHeight();
-
             canvas.drawColor(Color.WHITE);
 
-            canvas.drawLine(0, 0, w, h, mDashPaint);
-            canvas.drawLine(w, 0, 0, h, mDashPaint);
-
-            canvas.drawLine(w / 3, 0, w, h * 2 / 3, mDashPaint);
-            canvas.drawLine(w * 2 / 3, 0, w, h / 3, mDashPaint);
-            canvas.drawLine(0, h / 3, w * 2 / 3, h, mDashPaint);
-            canvas.drawLine(0, h * 2 / 3, w / 3, h, mDashPaint);
-
-            canvas.drawLine(w * 2 / 3, 0, 0, h * 2 / 3, mDashPaint);
-            canvas.drawLine(w / 3, 0, 0, h / 3, mDashPaint);
-            canvas.drawLine(w, h / 3, w / 3, h, mDashPaint);
-            canvas.drawLine(w, h * 2 / 3, w * 2 / 3, h, mDashPaint);
+            for (int i = 0; i < LINES_LENGTH; i++) {
+                canvas.drawLine(POINTS[i][0].x, POINTS[i][0].y, POINTS[i][1].x,
+                        POINTS[i][1].y, mDashPaint);
+            }
 
             canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
             canvas.drawPath(mPath, mPaint);
@@ -301,9 +314,11 @@ public class TouchTest extends BaseTest implements OnTouchListener {
 
         private void touchStart(float x, float y) {
             mPath.reset();
-            mPath.moveTo(x, y);
-            mX = x;
-            mY = y;
+            if ((mPoint = locate(x, y)) != null) {
+                mPath.moveTo(x, y);
+                mX = x;
+                mY = y;
+            }
         }
 
         private void touchMove(float x, float y) {
@@ -312,7 +327,7 @@ public class TouchTest extends BaseTest implements OnTouchListener {
 
             mTouchValid = dx < sTouchTolerance && dy < sTouchTolerance;
 
-            if (mTouchValid) {
+            if (mPoint != null && mTouchValid) {
                 mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
                 mX = x;
                 mY = y;
@@ -320,14 +335,61 @@ public class TouchTest extends BaseTest implements OnTouchListener {
         }
 
         private void touchUp() {
-            if (mTouchValid) {
+            int index = indexOfLines(mPoint, locate(mX, mY));
+
+            if (mTouchValid && index > -1) {
                 mPath.lineTo(mX, mY);
                 // commit the path to our offscreen
                 mCanvas.drawPath(mPath, mPaint);
+                // set pass flag
+                mFlag[index] = true;
             }
 
             // kill this so we don't double draw
             mPath.reset();
+
+            // pass?
+            if (checkLines()) {
+                getInstance().setTimerTask(MSG_END, 1000);
+            }
+        }
+
+        private Point locate(float x, float y) {
+            float distance = sDensity * 20;
+            float dx, dy;
+
+            for (int i = 0; i < LINES_LENGTH; i++) {
+                dx = Math.abs(x - POINTS[i][0].x);
+                dy = Math.abs(y - POINTS[i][0].y);
+                if (dx < distance && dy < distance) {
+                    return POINTS[i][0];
+                }
+
+                dx = Math.abs(x - POINTS[i][1].x);
+                dy = Math.abs(y - POINTS[i][1].y);
+                if (dx < distance && dy < distance) {
+                    return POINTS[i][1];
+                }
+            }
+            return null;
+        }
+
+        private int indexOfLines(Point start, Point end) {
+            for (int i = 0; i < LINES_LENGTH; i++) {
+                if (POINTS[i][0].equals(start) && POINTS[i][1].equals(end)
+                        || POINTS[i][0].equals(end)
+                        && POINTS[i][1].equals(start)) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        private boolean checkLines() {
+            for (int i = 0; i < LINES_LENGTH; i++) {
+                if (!mFlag[i]) return false;
+            }
+            return true;
         }
     }
 }
