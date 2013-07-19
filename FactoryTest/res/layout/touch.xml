@@ -3,38 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout android:layout_width="match_parent"
+    <view class="com.ztemt.test.basic.item.touch.BorderTouchView"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <LinearLayout android:id="@+id/touch_north"
-            android:layout_width="match_parent"
-            android:layout_height="60dip"
-            android:orientation="horizontal" />
+        android:id="@+id/touch_border" />
 
-        <LinearLayout android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-            <LinearLayout android:id="@+id/touch_west"
-                android:layout_width="60dip"
-                android:layout_height="match_parent"
-                android:orientation="vertical" />
-            <LinearLayout android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-            <LinearLayout android:id="@+id/touch_east"
-                android:layout_width="60dip"
-                android:layout_height="match_parent"
-                android:orientation="vertical" />
-        </LinearLayout>
-
-        <LinearLayout android:id="@+id/touch_south"
-            android:layout_width="match_parent"
-            android:layout_height="60dip"
-            android:orientation="horizontal" />
-    </LinearLayout>
-
-    <view class="com.ztemt.test.basic.item.TouchTest$TouchView"
+    <view class="com.ztemt.test.basic.item.touch.CenterTouchView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
