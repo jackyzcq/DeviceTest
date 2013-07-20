@@ -13,24 +13,29 @@ import android.view.View;
 
 public class BorderTouchView extends View {
 
-    //private static final String TAG = "BorderTouchView";
-    private static final int SIZE = 2;
-
     private Paint mPaint;
-    private Rect  mRows[][];
-    private Rect  mColumns[][];
+    private Rect  mNorth[];
+    private Rect  mSouth[];
+    private Rect  mWest[];
+    private Rect  mEast[];
 
     private OnTouchChangedListener mListener;
 
-    private boolean mRowFlags[][];
-    private boolean mColumnFlags[][];
-    private boolean mTouchValid;
+    private boolean mNorthFlags[];
+    private boolean mSouthFlags[];
+    private boolean mWestFlags[];
+    private boolean mEastFlags[];
+    private boolean mDistanceValid;
 
-    private int mTouchTolerance;
+    private int mMaxDistance;
     private int mX = 0;
     private int mY = 0;
     private int mRectWidth;
     private int mRectHeight;
+    private int mNorthHeight;
+    private int mSouthHeight;
+    private int mWestHeight;
+    private int mEastHeight;
 
     public BorderTouchView(Context context) {
         this(context, null);
@@ -40,11 +45,12 @@ public class BorderTouchView extends View {
         super(context, attrs);
 
         DisplayMetrics dm = getResources().getDisplayMetrics();
-        mRectWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, dm);
+        mRectWidth = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 40, dm);
         mRectHeight = (int) dm.density * 16;
 
         // Maximum distance between points
-        mTouchTolerance = (int) dm.density * 21;
+        mMaxDistance = (int) dm.density * 21;
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Paint.Style.FILL);
@@ -79,32 +85,54 @@ public class BorderTouchView extends View {
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        int rectsInRow = w / mRectHeight;
-        int rectsInColumn = (h - 2 * mRectWidth) / mRectHeight;
-
-        mRowFlags = new boolean[SIZE][rectsInRow];
-        mColumnFlags = new boolean[SIZE][rectsInColumn];
-
-        mRows = new Rect[SIZE][rectsInRow];
-        mColumns = new Rect[SIZE][rectsInColumn];
-
         int l, r, t, b;
-        for (int i = 0; i < SIZE; i++) {
-            t = (h - mRectWidth) * i;
-            b = t + mRectWidth;
-            for (int j = 0; j < rectsInRow; j++) {
-                l = mRectHeight * j;
-                r = (j == rectsInRow - 1) ? w : l + mRectHeight;
-                mRows[i][j] = new Rect(l + 1, t + 1, r - 1, b - 1);
-            }
 
-            l = (w - mRectWidth) * i;
-            r = l + mRectWidth;
-            for (int j = 0; j < rectsInColumn; j++) {
-                t = mRectWidth + mRectHeight * j;
-                b = (j == rectsInColumn - 1) ? h - mRectWidth : t + mRectHeight;
-                mColumns[i][j] = new Rect(l + 1, t + 1, r - 1, b - 1);
-            }
+        mNorth = new Rect[w / mRectHeight];
+        mNorthFlags = new boolean[mNorth.length];
+
+        mSouth = new Rect[mNorth.length];
+        mSouthFlags = new boolean[mSouth.length];
+
+        mWest = new Rect[(h - 2 * mRectWidth) / mRectHeight];
+        mWestFlags = new boolean[mWest.length];
+
+        mEast = new Rect[mWest.length];
+        mEastFlags = new boolean[mEast.length];
+
+        mNorthHeight = w / mNorth.length;
+        for (int i = 0; i < mNorth.length; i++) {
+            l = mNorthHeight * i;
+            r = (i == mNorth.length - 1) ? w : l + mNorthHeight;
+            t = 0;
+            b = mRectWidth;
+            mNorth[i] = new Rect(l + 1, t + 1, r - 1, b - 1);
+        }
+
+        mSouthHeight = w / mSouth.length;
+        for (int i = 0; i < mSouth.length; i++) {
+            l = mSouthHeight * i;
+            r = (i == mSouth.length - 1) ? w : l + mSouthHeight;
+            t = h - mRectWidth;
+            b = h;
+            mSouth[i] = new Rect(l + 1, t + 1, r - 1, b - 1);
+        }
+
+        mWestHeight = (h - 2 * mRectWidth) / mWest.length;
+        for (int i = 0; i < mWest.length; i++) {
+            l = 0;
+            r = mRectWidth;
+            t = mRectWidth + mWestHeight * i;
+            b = (i == mWest.length - 1) ? h - mRectWidth : t + mWestHeight;
+            mWest[i] = new Rect(l + 1, t + 1, r - 1, b - 1);
+        }
+
+        mEastHeight = (h - 2 * mRectWidth) / mEast.length;
+        for (int i = 0; i < mEast.length; i++) {
+            l = w - mRectWidth;
+            r = w;
+            t = mRectWidth + mEastHeight * i;
+            b = (i == mEast.length - 1) ? h - mRectWidth : t + mEastHeight;
+            mEast[i] = new Rect(l + 1, t + 1, r - 1, b - 1);
         }
     }
 
@@ -112,20 +140,26 @@ public class BorderTouchView extends View {
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(Color.BLACK);
 
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < mRows[i].length; j++) {
-                mPaint.setColor(mRowFlags[i][j] ? Color.GREEN : Color.WHITE);
-                canvas.drawRect(mRows[i][j], mPaint);
-            }
-            for (int j = 0; j < mColumns[i].length; j++) {
-                mPaint.setColor(mColumnFlags[i][j] ? Color.GREEN : Color.WHITE);
-                canvas.drawRect(mColumns[i][j], mPaint);
-            }
+        for (int i = 0; i < mNorth.length; i++) {
+            mPaint.setColor(mNorthFlags[i] ? Color.GREEN : Color.WHITE);
+            canvas.drawRect(mNorth[i], mPaint);
+        }
+        for (int i = 0; i < mSouth.length; i++) {
+            mPaint.setColor(mSouthFlags[i] ? Color.GREEN : Color.WHITE);
+            canvas.drawRect(mSouth[i], mPaint);
+        }
+        for (int i = 0; i < mWest.length; i++) {
+            mPaint.setColor(mWestFlags[i] ? Color.GREEN : Color.WHITE);
+            canvas.drawRect(mWest[i], mPaint);
+        }
+        for (int i = 0; i < mEast.length; i++) {
+            mPaint.setColor(mEastFlags[i] ? Color.GREEN : Color.WHITE);
+            canvas.drawRect(mEast[i], mPaint);
         }
     }
 
     private void touchStart(int x, int y) {
-        mTouchValid = true;
+        mDistanceValid = true;
         mX = x;
         mY = y;
     }
@@ -137,11 +171,11 @@ public class BorderTouchView extends View {
         mX = x;
         mY = y;
 
-        if (mTouchValid) {
-            mTouchValid = dx < mTouchTolerance && dy < mTouchTolerance;
+        if (mDistanceValid) {
+            mDistanceValid = dx < mMaxDistance && dy < mMaxDistance;
         }
 
-        if (mTouchValid) {
+        if (mDistanceValid) {
             setBorderFlag(x, y);
         }
     }
@@ -153,43 +187,45 @@ public class BorderTouchView extends View {
     }
 
     private void setBorderFlag(int x, int y) {
-        if (y < mRectWidth || y > getHeight() - mRectWidth) {
-            int i = x / mRectHeight;
-            if (i > -1 && i < mRowFlags[0].length) {
-                if (y < mRectWidth) {
-                    // mHorizontal[0]
-                    mRowFlags[0][i] = true;
-                } else if (y > getHeight() - mRectWidth) {
-                    // mHorizontal[1]
-                    mRowFlags[1][i] = true;
-                }
+        if (y < mRectWidth) {
+            // North
+            int i = x / mNorthHeight;
+            if (i > -1 && i < mNorthFlags.length) {
+                mNorthFlags[i] = true;
             }
-        } else if (y > mRectWidth && y < getHeight() - mRectWidth) {
-            int i = (y - mRectWidth) / mRectHeight;
-            if (i > -1 && i < mColumnFlags[0].length) {
-                if (x < mRectWidth) {
-                    // mVertical[0]
-                    mColumnFlags[0][i] = true;
-                } else if (x > getWidth() - mRectWidth) {
-                    // mVertical[1]
-                    mColumnFlags[1][i] = true;
-                }
+        } else if (y > getHeight() - mRectWidth) {
+            // South
+            int i = x / mSouthHeight;
+            if (i > -1 && i < mSouthFlags.length) {
+                mSouthFlags[i] = true;
+            }
+        } else if (x < mRectWidth) {
+            // West
+            int i = (y - mRectWidth) / mWestHeight;
+            if (i > -1 && i < mWestFlags.length) {
+                mWestFlags[i] = true;
+            }
+        } else if (x > getWidth() - mRectWidth) {
+            // East
+            int i = (y - mRectWidth) / mEastHeight;
+            if (i > -1 && i < mEastFlags.length) {
+                mEastFlags[i] = true;
             }
         }
     }
 
     private boolean checkBorders() {
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < mRowFlags[i].length; j++) {
-                if (!mRowFlags[i][j]) {
-                    return false;
-                }
-            }
-            for (int j = 0; j < mColumnFlags[i].length; j++) {
-                if (!mColumnFlags[i][j]) {
-                    return false;
-                }
-            }
+        for (int i = 0; i < mNorthFlags.length; i++) {
+            if (!mNorthFlags[i]) return false;
+        }
+        for (int i = 0; i < mSouthFlags.length; i++) {
+            if (!mSouthFlags[i]) return false;
+        }
+        for (int i = 0; i < mWestFlags.length; i++) {
+            if (!mWestFlags[i]) return false;
+        }
+        for (int i = 0; i < mEastFlags.length; i++) {
+            if (!mEastFlags[i]) return false;
         }
 
         return true;
